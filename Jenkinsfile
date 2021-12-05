@@ -12,6 +12,8 @@ pipeline {
     
         stage('Before Install') {
             steps {
+                sh 'ls'
+                echo = "docker build -t ahanasystems/react-test -f ./client/Dockerfile.dev ./client"
                 sh 'docker build -t ahanasystems/react-test -f ./client/Dockerfile.dev ./client'
             
             }
