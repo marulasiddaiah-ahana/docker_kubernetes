@@ -1,0 +1,15 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t ahanasystems/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run ahanasystems/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t ahanasystems/multi-client ./client
+  - docker build -t ahanasystems/mult-nginx ./nginx
+  - docker build -t ahanasystems/multi-server ./server
+  - docker build -t ahanasystems/multi-worker ./worker
