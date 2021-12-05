@@ -13,3 +13,10 @@ after_success:
   - docker build -t ahanasystems/mult-nginx ./nginx
   - docker build -t ahanasystems/multi-server ./server
   - docker build -t ahanasystems/multi-worker ./worker
+  # Login to docker Cli
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those images and push them to docker hub
+  - docker push ahanasystems/multi-client
+  - docker push ahanasystems/mult-nginx
+  - docker push ahanasystems/multi-server
+  - docker push ahanasystems/multi-worker
