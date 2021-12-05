@@ -12,36 +12,34 @@ pipeline {
     
         stage('Before Install') {
             steps {
-                sh 'ls'
-                echo "docker build -t ahanasystems/react-test -f ./client/Dockerfile.dev ./client"
-                sh 'docker build -t ahanasystems/react-test -f ./client/Dockerfile.dev ./client'
+                bat 'docker build -t ahanasystems/react-test -f ./client/Dockerfile.dev ./client'
             
             }
         }
 
         stage('Test') {
             steps {
-                sh 'docker run ahanasystems/react-test npm test -- --coverage'
+                bat 'docker run ahanasystems/react-test npm test -- --coverage'
             }
         }
 
         stage('Build') {
             steps {
-                sh 'docker build -t ahanasystems/multi-client ./client'
-                sh 'docker build -t ahanasystems/mult-nginx ./nginx'
-                sh 'docker build -t ahanasystems/multi-server ./server'
-                sh 'docker build -t ahanasystems/multi-worker ./worker'
+                bat 'docker build -t ahanasystems/multi-client ./client'
+                bat 'docker build -t ahanasystems/mult-nginx ./nginx'
+                bat 'docker build -t ahanasystems/multi-server ./server'
+                bat 'docker build -t ahanasystems/multi-worker ./worker'
             }
         }
     
     
         stage('Push Images to Docker Hub') {
             steps {
-                sh 'docker login -u ahanasystems -p Siddaiah@1994'
-                sh 'docker push ahanasystems/multi-client'
-                sh 'docker push ahanasystems/mult-nginx'
-                sh 'docker push ahanasystems/multi-server'
-                sh 'docker push ahanasystems/multi-worker'
+                bat 'docker login -u ahanasystems -p Siddaiah@1994'
+                bat 'docker push ahanasystems/multi-client'
+                bat 'docker push ahanasystems/mult-nginx'
+                bat 'docker push ahanasystems/multi-server'
+                bat 'docker push ahanasystems/multi-worker'
             }
         }
     }
